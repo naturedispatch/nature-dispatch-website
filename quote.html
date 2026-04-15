@@ -4,8 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Get a free freight quote from Nature Dispatch — Columbus, Ohio dry van carrier. Fast response, real rates, no obligation.">
+  <meta name="keywords" content="freight quote Columbus Ohio, dry van shipping quote, trucking quote Ohio, FTL rate quote, no obligation freight quote">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.naturedispatch.net/quote.html">
+  <meta property="og:title" content="Get a Quote | Nature Dispatch">
+  <meta property="og:description" content="Free, no-obligation freight quote from a Columbus-based dry van carrier. Fast response, real rates.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.naturedispatch.net/quote.html">
+  <meta name="twitter:card" content="summary">
   <title>Get a Quote | Nature Dispatch</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231B5E20'/><text x='50' y='68' font-family='Arial,sans-serif' font-size='48' font-weight='900' fill='white' text-anchor='middle'>ND</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -55,7 +65,10 @@
           <span class="section-label">Quote Request</span>
           <h2 class="section-title mb-3">Tell Us About Your Freight</h2>
           
-          <form id="quoteForm" action="#" method="POST" novalidate>
+          <form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <!-- Honeypot spam protection -->
+            <input type="text" name="_gotcha" style="display:none">
+            <input type="hidden" name="_subject" value="New Quote Request — Nature Dispatch">
             <div class="form-grid">
               <div class="form-group">
                 <label class="form-label" for="firstName">First Name *</label>

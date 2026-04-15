@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // --- Basic form validation + submission feedback ---
+  // --- Form validation + Formspree submission ---
   var forms = document.querySelectorAll('form');
   for (var f = 0; f < forms.length; f++) {
     forms[f].addEventListener('submit', function (e) {
@@ -53,23 +53,60 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Show success message
-      var btn = this.querySelector('button[type="submit"]');
+      var form = this;
+      var btn = form.querySelector('button[type="submit"]');
       var originalText = btn.textContent;
-      btn.textContent = 'Submitted! We\'ll be in touch.';
-      btn.style.background = '#2E7D32';
-      btn.style.color = '#fff';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      // Reset after 4 seconds
-      var formRef = this;
-      setTimeout(function () {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.disabled = false;
-        formRef.reset();
-      }, 4000);
+      // If form has a Formspree action, submit via fetch
+      var action = form.getAttribute('action');
+      if (action && action.indexOf('formspree.io') !== -1) {
+        fetch(action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (response) {
+          if (response.ok) {
+            btn.textContent = 'Submitted! We\'ll be in touch.';
+            btn.style.background = '#2E7D32';
+            btn.style.color = '#fff';
+            form.reset();
+          } else {
+            btn.textContent = 'Error — please try again';
+            btn.style.background = '#C62828';
+            btn.style.color = '#fff';
+          }
+          setTimeout(function () {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+          }, 4000);
+        }).catch(function () {
+          btn.textContent = 'Error — please try again';
+          btn.style.background = '#C62828';
+          btn.style.color = '#fff';
+          setTimeout(function () {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.disabled = false;
+          }, 4000);
+        });
+      } else {
+        // Fallback for forms without Formspree
+        btn.textContent = 'Submitted! We\'ll be in touch.';
+        btn.style.background = '#2E7D32';
+        btn.style.color = '#fff';
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+          form.reset();
+        }, 4000);
+      }
     });
   }
 
