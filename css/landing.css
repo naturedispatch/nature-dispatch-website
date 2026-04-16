@@ -802,7 +802,7 @@ a {
 
 @keyframes marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-400px * 6 - 24px * 6)); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ============================================
